@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <div id="nav">
+      <v-btn to="/visa">VISA</v-btn>
+      <v-btn to="/">Home</v-btn>
+      <v-btn to="/about">About</v-btn>
+      <v-btn to="/about">About</v-btn>
+      
+    </div> -->
+    <small-header/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import SmallHeader from './components/SmallHeader.vue'
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    'smallHeader':SmallHeader
   }
 }
 </script>
@@ -21,8 +27,8 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>
