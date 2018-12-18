@@ -111,7 +111,6 @@
                 // let doc = this.document;
                 // this.$parent.parentReceiveApplication({...this.document});
                 this.$emit("submitApplication",{...this.document});
-                console.log(this.document);
             }
         },
         created(){

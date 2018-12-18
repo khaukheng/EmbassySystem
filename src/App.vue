@@ -7,15 +7,21 @@
       <v-btn to="/about">About</v-btn>
       
     </div> -->
-    <v-layout >
-      <v-flex xs-6 class="border-right">
-        <small-header/>
-        <router-view @submitApplication="parentReceiveApplication"/>
-      </v-flex>
-      <v-flex xs-6>
-        <verify-class ref="childComponent"/>
-      </v-flex>
-    </v-layout>
+    <v-container fluid>
+      <v-layout row>
+        <v-flex xs-6 class="border-right">
+          <v-container fluid>
+            <small-header/>
+            <router-view @submitApplication="parentReceiveApplication"/>
+          </v-container>
+        </v-flex>
+        <v-flex xs-6>
+          <v-container fluid>
+            <verify-class ref="childComponent"/>
+          </v-container>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
@@ -35,7 +41,6 @@ export default {
   },
   methods:{
     parentReceiveApplication($event){
-      console.log($event);
       this.$refs.childComponent.applicationReceive($event);
       this.applicationReceive = $event;
     }
@@ -49,11 +54,14 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
+  height: 100%;
+  width: 100%;
   color: #2c3e50;
   /* margin-top: 60px; */
 }
 
 .border-right{
-  border-right:1px solid black
+  border-right:1px solid black;
+  background-color: #e8e8e8;
 }
 </style>
