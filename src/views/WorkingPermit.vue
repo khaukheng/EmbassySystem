@@ -61,6 +61,7 @@ export default {
                 name:"",
                 ic:"",
                 docs:[],
+                priority:"4",
                 type:"workingPermit",
             },
             uploadDoc:[

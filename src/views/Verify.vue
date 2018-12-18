@@ -2,6 +2,15 @@
     <v-container>
         <p>Received Application</p>
         <p>{{ receivedApplication }}</p>
+        <v-layout>
+          <p>Processing: </p>
+          <p>{{ processingApplication }}</p>
+        </v-layout>
+        <v-layout>
+          <p>In Schedule:</p>
+          <v-table></v-table>
+        </v-layout>
+        <v-layout></v-layout>
     </v-container>
 </template>
 
@@ -17,8 +26,20 @@ export default {
         applicationReceive(application){
             this.receivedApplication.push(application);
         }
+        sort: function(array){
+          return array.sort(function(a,b)){
+            return a.priority - b.priority;
+          }
+        }
     },
-    // watch: { 
+    schedule:{
+      scheduleApplication: function(){
+        function compareNumbers(a,b){
+          return a-b;
+        }
+      }
+    }
+    // watch: {
     //   	applicationReceive(newVal, oldVal) { // watch it
     //       console.log('Prop changed: ', newVal, ' | was: ', oldVal);
     //       if(newVal!=null){

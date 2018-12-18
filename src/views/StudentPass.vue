@@ -61,6 +61,7 @@ export default {
                 name:"",
                 ic:"",
                 docs:[],
+                priority:"3",
                 type:"studentPass",
             },
             uploadDoc:[

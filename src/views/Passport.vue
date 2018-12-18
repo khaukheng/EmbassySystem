@@ -61,6 +61,7 @@ export default {
                     name:"",
                     ic:"",
                     docs:[],
+                    priority:"2",
                     type:"passport",
                 },
                 uploadDoc:[

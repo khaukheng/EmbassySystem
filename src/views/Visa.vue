@@ -37,7 +37,7 @@
             <p>printVisa here</p>
         </v-container>
     </div>
-    
+
 </template>
 
 <script>
@@ -63,6 +63,7 @@
                     name:"",
                     ic:"",
                     type:"visa",
+                    priority:"1",
                     docs:[]
                 },
                 uploadDoc:[
@@ -132,4 +133,3 @@ v-container{
 
 }
 </style>
-
