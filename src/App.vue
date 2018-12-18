@@ -15,7 +15,7 @@
             <router-view @submitApplication="parentReceiveApplication"/>
           </v-container>
         </v-flex>
-        <v-flex xs-6>
+        <v-flex xs-6 class="right-col">
           <v-container fluid>
             <verify-class ref="childComponent"/>
           </v-container>
@@ -63,5 +63,8 @@ export default {
 .border-right{
   border-right:1px solid black;
   background-color: #e8e8e8;
+}
+.right-col {
+  background-color: #d3d3d3;
 }
 </style>
