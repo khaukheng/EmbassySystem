@@ -3,20 +3,20 @@
         <app-bar :barColor="barColor" :darkTheme="darkTheme" :sliderColor="sliderColor" :tabs="tabs" @docTabChange="onTabChange"/>
         <v-container v-if="doc=='uploadDoc'" >
             <v-layout row justify-center>
-                <v-flex xs8>
+                <v-flex xs12>
                     <v-text-field label="NAME" v-model="document.name" solo/>
                 </v-flex>
             </v-layout>
             <v-layout row justify-center>
-                <v-flex xs8>
+                <v-flex xs12>
                     <v-text-field type ="number" label="IC" v-model="document.ic" solo/>
                 </v-flex>
             </v-layout>
-            <v-layout row justify-center v-for="(doc,i) in uploadDoc" :key=i class="py-2">
-                    <v-flex xs4 class="py-4">
+            <v-layout row justify-center v-for="(doc,i) in uploadDoc" :key=i>
+                    <v-flex xs11 class="py-4">
                     {{doc}}
                     </v-flex>
-                    <v-flex xs4>
+                    <v-flex xs1>
                         <!-- <v-text-field label="Select Image" @click='pickFile(i)' v-model='imagesName[i]' prepend-icon='attach_file'></v-text-field>
                         <input class="form-control" :ref="'image'+i" style="display: none" type="file" @change="handleFileUpload(i,$event)"/> -->
                         <v-checkbox
@@ -25,7 +25,7 @@
                     </v-flex>
             </v-layout>
             <v-layout row justify-center>
-                <v-flex offset-xs6 xs2>
+                <v-flex offset-xs10 xs2>
                     <v-btn block color="#00695C" class="white--text" @click="submit">SUBMIT</v-btn>
                 </v-flex>
             </v-layout>
