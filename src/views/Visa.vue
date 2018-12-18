@@ -56,14 +56,7 @@
                         name:"UPLOAD DOCUMENT",
                         value:"uploadDoc"
                     }
-                    ,{
-                        name:"DOCUMENT VERIFICATION",
-                        value:"docVerify"
-                    },
-                    {
-                        name:"PRINT VISA",
-                        value:"printVisa"
-                    }],
+                    ],
                 doc:'',
                 document:
                 {

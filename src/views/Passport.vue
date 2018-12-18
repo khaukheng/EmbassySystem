@@ -26,7 +26,7 @@
             </v-layout>
             <v-layout row justify-center>
                 <v-flex offset-xs6 xs2>
-                    <v-btn block color="#00695C" class="white--text">SUBMIT</v-btn>
+                    <v-btn block color="#00695C" class="white--text" @click="submit">SUBMIT</v-btn>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -54,20 +54,14 @@ export default {
                         name:"UPLOAD DOCUMENT",
                         value:"uploadDoc"
                     }
-                    ,{
-                        name:"DOCUMENT VERIFICATION",
-                        value:"docVerify"
-                    },
-                    {
-                        name:"PRINT PASSPORT",
-                        value:"printPassport"
-                    }],
+                    ],
                 doc:'',
                 document:
                 {
                     name:"",
                     ic:"",
-                    docs:[]
+                    docs:[],
+                    type:"passport",
                 },
                 uploadDoc:[
                     "PASSPORT PHOTOCOPIES",
@@ -111,9 +105,14 @@ export default {
                     this.$forceUpdate();
                 }
                 console.log($event);
+            },
+            submit(){
+                this.document['date']=new Date();
+                console.log(this.document);
             }
         },
         created(){
+            this.uploadDoc.forEach(()=>this.document.docs.push(false));
             this.doc=this.tabs[0].value;
         }
 }

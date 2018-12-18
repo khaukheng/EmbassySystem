@@ -17,13 +17,16 @@
                     {{doc}}
                     </v-flex>
                     <v-flex xs4>
-                        <v-text-field label="Select Image" @click='pickFile(i)' v-model='imagesName[i]' prepend-icon='attach_file'></v-text-field>
-                        <input class="form-control" :ref="'image'+i" style="display: none" type="file" @change="handleFileUpload(i,$event)"/>
+                        <!-- <v-text-field label="Select Image" @click='pickFile(i)' v-model='imagesName[i]' prepend-icon='attach_file'></v-text-field>
+                        <input class="form-control" :ref="'image'+i" style="display: none" type="file" @change="handleFileUpload(i,$event)"/> -->
+                        <v-checkbox
+                        v-model='document.docs[i]'
+                        ></v-checkbox>
                     </v-flex>
             </v-layout>
             <v-layout row justify-center>
                 <v-flex offset-xs6 xs2>
-                    <v-btn block color="#00695C" class="white--text">SUBMIT</v-btn>
+                    <v-btn block color="#00695C" class="white--text" @click="submit">SUBMIT</v-btn>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -51,20 +54,14 @@ export default {
                     name:"UPLOAD DOCUMENT",
                     value:"uploadDoc"
                 }
-                ,{
-                    name:"DOCUMENT VERIFICATION",
-                    value:"docVerify"
-                },
-                {
-                    name:"PRINT PERMIT",
-                    value:"printPermit"
-                }],
+                ],
             doc:'',
             document:
             {
                 name:"",
                 ic:"",
-                docs:[]
+                docs:[],
+                type:"workingPermit",
             },
             uploadDoc:[
                 "PASSPORT PHOTOCOPIES",
@@ -107,9 +104,14 @@ export default {
                     reader.readAsDataURL(input.files[0]);
                     this.$forceUpdate();
                 }
+            },
+            submit(){
+                this.document['date']=new Date();
+                console.log(this.document);
             }
     },
     created(){
+        this.uploadDoc.forEach(()=>this.document.docs.push(false));
         this.doc=this.tabs[0].value;
     }
 }
