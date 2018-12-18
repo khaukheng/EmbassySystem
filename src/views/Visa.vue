@@ -9,7 +9,7 @@
             </v-layout>
             <v-layout row justify-center>
                 <v-flex xs8>
-                    <v-text-field label="IC" v-model="document.ic" solo/>
+                    <v-text-field label="IC" type ="number" v-model="document.ic" solo/>
                 </v-flex>
             </v-layout>
             <v-layout row justify-center v-for="(doc,i) in uploadDoc" :key=i class="py-2">
@@ -108,6 +108,9 @@
             // },
             submit(){
                 this.document['date']=new Date();
+                // let doc = this.document;
+                // this.$parent.parentReceiveApplication({...this.document});
+                this.$emit("submitApplication",{...this.document});
                 console.log(this.document);
             }
         },

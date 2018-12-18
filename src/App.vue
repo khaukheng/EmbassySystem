@@ -8,12 +8,12 @@
       
     </div> -->
     <v-layout >
-      <v-flex xs-6 style="border-right:1px solid black">
+      <v-flex xs-6 class="border-right">
         <small-header/>
-        <router-view/>
+        <router-view @submitApplication="parentReceiveApplication"/>
       </v-flex>
       <v-flex xs-6>
-
+        <verify-class ref="childComponent"/>
       </v-flex>
     </v-layout>
   </div>
@@ -21,10 +21,24 @@
 
 <script>
 import SmallHeader from './components/SmallHeader.vue'
+import VerifyClass from './views/Verify.vue'
 export default {
   name: 'app',
+  data(){
+    return{
+      applicationReceive:null
+    }
+  },
   components: {
-    'smallHeader':SmallHeader
+    SmallHeader,
+    VerifyClass
+  },
+  methods:{
+    parentReceiveApplication($event){
+      console.log($event);
+      this.$refs.childComponent.applicationReceive($event);
+      this.applicationReceive = $event;
+    }
   }
 }
 </script>
@@ -37,5 +51,9 @@ export default {
   /* text-align: center; */
   color: #2c3e50;
   /* margin-top: 60px; */
+}
+
+.border-right{
+  border-right:1px solid black
 }
 </style>

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Visa from './views/Visa.vue'
-
+window.EventBus = new Vue();
 Vue.use(Router)
 
 export default new Router({
