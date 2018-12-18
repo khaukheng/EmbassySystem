@@ -101,13 +101,12 @@ export default {
                         // Read image as base64 and set to imageData
                         // this.imageData = e.target.result;
                         this.document.docs[i] = e.target.result;
-                        console.log(this.document.docs[i]);
+                        // console.log(this.document.docs[i]);
                     }
                     // Start the reader job - read file as a data url (base64 format)
                     reader.readAsDataURL(input.files[0]);
                     this.$forceUpdate();
                 }
-                console.log($event);
             }
     },
     created(){

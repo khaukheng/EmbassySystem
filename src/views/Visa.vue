@@ -17,8 +17,11 @@
                     {{doc}}
                     </v-flex>
                     <v-flex xs4>
-                        <v-text-field label="Select Image" @click='pickFile(i)' v-model='imagesName[i]' prepend-icon='attach_file'></v-text-field>
-                        <input class="form-control" :ref="'image'+i" style="display: none" type="file" @change="handleFileUpload(i,$event)"/>
+                        <!-- <v-text-field label="Select Image" @click='pickFile(i)' v-model='imagesName[i]' prepend-icon='attach_file'></v-text-field>
+                        <input class="form-control" :ref="'image'+i" style="display: none" type="file" @change="handleFileUpload(i,$event)"/> -->
+                        <v-checkbox
+                        v-model='document.docs[i]'
+                        ></v-checkbox>
                     </v-flex>
             </v-layout>
             <v-layout row justify-center>
@@ -66,6 +69,7 @@
                 {
                     name:"",
                     ic:"",
+                    type:"visa",
                     docs:[]
                 },
                 uploadDoc:[
@@ -76,8 +80,6 @@
                     "APPLICANT'S CHEQUE",
                     "INVITATION LETTER",
                     "VISA FEE RECEIPT",
-                ],
-                imagesName:[
                 ]
             }
         },
@@ -89,33 +91,35 @@
                 // this.$refs['image'+i].click();
                 this.$refs['image'+i][0].click();
             },
-            handleFileUpload(i,$event){
-                // Reference to the DOM input element
-                var input = $event.target;
-                // Ensure that you have a file before attempting to read it
-                if (input.files && input.files[0]) {
-                    this.imagesName[i] = input.files[0].name;
-                    // create a new FileReader to read this image and convert to base64 format
-                    var reader = new FileReader();
-                    // Define a callback function to run, when FileReader finishes its job
-                    reader.onload = (e) => {
-                        // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-                        // Read image as base64 and set to imageData
-                        // this.imageData = e.target.result;
-                        this.document.docs[i] = e.target.result;
-                        console.log(this.document.docs[i]);
-                    }
-                    // Start the reader job - read file as a data url (base64 format)
-                    reader.readAsDataURL(input.files[0]);
-                    this.$forceUpdate();
-                }
-                console.log($event);
-            },
+            // handleFileUpload(i,$event){
+            //     // Reference to the DOM input element
+            //     var input = $event.target;
+            //     // Ensure that you have a file before attempting to read it
+            //     if (input.files && input.files[0]) {
+            //         this.imagesName[i] = input.files[0].name;
+            //         // create a new FileReader to read this image and convert to base64 format
+            //         var reader = new FileReader();
+            //         // Define a callback function to run, when FileReader finishes its job
+            //         reader.onload = (e) => {
+            //             // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+            //             // Read image as base64 and set to imageData
+            //             // this.imageData = e.target.result;
+            //             this.document.docs[i] = e.target.result;
+            //             console.log(this.document.docs[i]);
+            //         }
+            //         // Start the reader job - read file as a data url (base64 format)
+            //         reader.readAsDataURL(input.files[0]);
+            //         this.$forceUpdate();
+            //     }
+            //     console.log($event);
+            // },
             submit(){
+                this.document['date']=new Date();
                 console.log(this.document);
             }
         },
         created(){
+            this.uploadDoc.forEach(()=>this.document.docs.push(false));
             this.doc=this.tabs[0].value;
         }
     }

@@ -7,8 +7,15 @@
       <v-btn to="/about">About</v-btn>
       
     </div> -->
-    <small-header/>
-    <router-view/>
+    <v-layout >
+      <v-flex xs-6 style="border-right:1px solid black">
+        <small-header/>
+        <router-view/>
+      </v-flex>
+      <v-flex xs-6>
+
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 

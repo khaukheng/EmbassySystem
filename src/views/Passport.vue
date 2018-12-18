@@ -17,8 +17,11 @@
                     {{doc}}
                     </v-flex>
                     <v-flex xs4>
-                        <v-text-field label="Select Image" @click='pickFile(i)' v-model='imagesName[i]' prepend-icon='attach_file'></v-text-field>
-                        <input class="form-control" :ref="'image'+i" style="display: none" type="file" @change="handleFileUpload(i,$event)"/>
+                        <!-- <v-text-field label="Select Image" @click='pickFile(i)' v-model='imagesName[i]' prepend-icon='attach_file'></v-text-field>
+                        <input class="form-control" :ref="'image'+i" style="display: none" type="file" @change="handleFileUpload(i,$event)"/> -->
+                        <v-checkbox
+                        v-model='document.docs[i]'
+                        ></v-checkbox>
                     </v-flex>
             </v-layout>
             <v-layout row justify-center>
