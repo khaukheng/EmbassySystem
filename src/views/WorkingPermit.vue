@@ -9,7 +9,7 @@
             </v-layout>
             <v-layout row justify-center>
                 <v-flex xs8>
-                    <v-text-field label="IC" type ="number" v-model="document.ic" solo/>
+                    <v-text-field label="PASSPORT NUMBER" type ="number" v-model="document.ic" solo/>
                 </v-flex>
             </v-layout>
             <v-layout row justify-center v-for="(doc,i) in uploadDoc" :key=i class="py-2">
@@ -64,13 +64,14 @@ export default {
                 type:"workingPermit",
             },
             uploadDoc:[
-                "PASSPORT PHOTOCOPIES",
-                "VISA APPLICATION FORM",
-                "APPLICANT'S PHOTO",
-                "FLIGHT TICKET PHOTOCOPY",
-                "APPLICANT'S CHEQUE",
-                "INVITATION LETTER",
-                "VISA FEE RECEIPT",
+                "OFFER LETTER FROM EMPLOYER",
+                "VISA CONFIRMATION DOCUMENT",
+                "PAYMENT RECEIPT",
+                "FORM IMM.12",
+                "BANK STATEMENT",
+                "PASSPORT PHOTO",
+                "PASSPORT PHOTOCOPY",
+                "MEDICAL CHECKUP"
             ],
             imagesName:[
             ]

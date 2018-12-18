@@ -64,13 +64,10 @@ export default {
                     type:"passport",
                 },
                 uploadDoc:[
-                    "PASSPORT PHOTOCOPIES",
-                    "VISA APPLICATION FORM",
-                    "APPLICANT'S PHOTO",
-                    "FLIGHT TICKET PHOTOCOPY",
-                    "APPLICANT'S CHEQUE",
-                    "INVITATION LETTER",
-                    "VISA FEE RECEIPT",
+                    "MYKAD",
+                    "PROOF OF VALID IC",
+                    "LATEST PRESENT PASSPORT",
+                    "PASSPORT RENEWAL PAYMENT RECEIPT"
                 ],
                 imagesName:[
                 ]

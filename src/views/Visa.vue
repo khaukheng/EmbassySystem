@@ -9,7 +9,7 @@
             </v-layout>
             <v-layout row justify-center>
                 <v-flex xs8>
-                    <v-text-field label="IC" type ="number" v-model="document.ic" solo/>
+                    <v-text-field label="PASSPORT NUMBER" type ="number" v-model="document.ic" solo/>
                 </v-flex>
             </v-layout>
             <v-layout row justify-center v-for="(doc,i) in uploadDoc" :key=i class="py-2">
