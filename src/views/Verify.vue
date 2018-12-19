@@ -2,6 +2,11 @@
     <div>
         <v-layout row wrap>
             <v-flex xs12>
+                <h3>Number of officers: {{numOfficer}}</h3>
+                <h3>Scheduling Mode: {{schedulingMethod}}</h3>
+                <br>
+            </v-flex>
+            <v-flex xs12>
                 <v-tabs 
                     color="cyan" 
                     dark 
@@ -13,10 +18,10 @@
                         <v-layout row wrap>
                             <v-flex xs12> 
                                 <br>
-                                <h1>Next Document to Approve</h1>
+                                <h1>Documents to Approve: {{numApplicants}}</h1>
                             </v-flex>
                             <v-flex xs12 v-if="receivedApplication.length">
-                                <template v-for="application in receivedApplication" >
+                                <template v-for="application in applicationList" >
                                     <v-card :key="application.name" class="applicant-card">
                                         <v-card-title primary-title>
                                             <div>
@@ -29,7 +34,9 @@
                                                     <h3 class="headline mb-0">{{application.name}}</h3>
                                                 </span>
                                                 <br>
-                                                <div>                                    
+                                                <div>                
+                                                    <p>Date: {{(new Date(application.date)).toString()}}</p>                    
+                                                    <p>Due in: {{application.due}}</p>
                                                     <p>IC: {{application.ic}}</p>
                                                     <p>Number of document uploaded: {{getDocumentCount(application.docs)}}</p>
                                                 </div>
@@ -61,7 +68,7 @@
                                 <h1>Approved Applicants</h1>
                             </v-flex>
                             <v-flex xs12 v-if="approvedApplication.length">
-                                <template v-for="application in approvedApplication" >
+                                <template v-for="application in approvedList" >
                                     <v-card :key="application.name" class="applicant-card">
                                         <v-card-title primary-title>
                                             <div>
@@ -74,7 +81,9 @@
                                                     <h3 class="headline mb-0">{{application.name}}</h3>
                                                 </span>
                                                 <br>
-                                                <div>                                    
+                                                <div>        
+                                                    <p>Date: {{(new Date(application.date)).toString()}}</p>                    
+                                                    <p>Due in: {{application.due}}</p>                            
                                                     <p>IC: {{application.ic}}</p>
                                                     <p>Number of document uploaded: {{getDocumentCount(application.docs)}}</p>
                                                 </div>
@@ -100,7 +109,7 @@
                                 <h1>Rejected Applicants</h1>
                             </v-flex>
                             <v-flex xs12 v-if="rejectedApplication.length">
-                                <template v-for="application in rejectedApplication" >
+                                <template v-for="application in rejectedList" >
                                     <v-card :key="application.name" class="applicant-card">
                                         <v-card-title primary-title>
                                             <div>
@@ -113,7 +122,9 @@
                                                     <h3 class="headline mb-0">{{application.name}}</h3>
                                                 </span>
                                                 <br>
-                                                <div>                                    
+                                                <div>          
+                                                    <p>Date: {{(new Date(application.date)).toString()}}</p>                    
+                                                    <p>Due in: {{application.due}}</p>                          
                                                     <p>IC: {{application.ic}}</p>
                                                     <p>Number of document uploaded: {{getDocumentCount(application.docs)}}</p>
                                                 </div>
@@ -141,15 +152,18 @@
 <script>
 export default {
     // props:["applicationReceive"],
+    created() {
+        this.getDueDate();
+    },
     data(){
         return {
+            numOfficer: 7,
             receivedApplication:[
                 {
                     "name": "Cheong Chah Wei",
                     "ic": "960910045047",
-                    "type": "visa",
+                    "type": "studentPass",
                     "docs": [
-                        true,
                         true,
                         true,
                         true,
@@ -157,7 +171,7 @@ export default {
                         true,
                         true
                     ],
-                    "date": "2018-12-18T12:59:25.052Z"
+                    "date": "2018-12-19T03:59:25.052Z"
                 },
                 {
                     "name": "Teoh Khau Kheng",
@@ -167,12 +181,9 @@ export default {
                         true,
                         true,
                         true,
-                        true,
-                        true,
-                        true,
                         true
                     ],
-                    "date": "2018-12-18T13:01:21.055Z"
+                    "date": "2018-12-19T02:01:21.055Z"
                 },
                 {
                     "name": "Teow Qin Kae",
@@ -184,10 +195,9 @@ export default {
                         true,
                         true,
                         true,
-                        true,
                         true
                     ],
-                    "date": "2018-12-18T13:03:08.370Z"
+                    "date": "2018-12-12T01:03:08.370Z"
                 },
                 {
                     "name": "Tan Han Yang",
@@ -200,9 +210,10 @@ export default {
                         true,
                         true,
                         true,
+                        true,
                         true
                     ],
-                    "date": "2018-12-18T13:04:36.621Z"
+                    "date": "2018-12-05T03:04:36.621Z"
                 },
                 {
                     "name": "Ooi Kee Aun",
@@ -217,8 +228,24 @@ export default {
                         true,
                         true
                     ],
-                    "date": "2018-12-18T13:05:32.565Z"
-                }
+                    "date": "2018-12-19T01:05:32.565Z"
+                },
+                {
+                    "name": "Omar",
+                    "ic": "92323404334344",
+                    "type": "workingPermit",
+                    "docs": [
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true
+                    ],
+                    "date": "2018-12-08T03:04:36.621Z"
+                },
             ],
             approvedApplication: [],
             rejectedApplication: []
@@ -230,9 +257,100 @@ export default {
         },
         rejectedCount() {
             return this.rejectedApplication.length;
+        },
+        fcfsList() {
+            const toSort = this.receivedApplication;
+            toSort.sort(function(a,b){
+                return  new Date(a.date) - new Date(b.date);
+            });
+            return toSort;
+        },
+        mostCriticalTaskList() {            
+            return this.getDueDate();
+        },
+        sortedList() {
+            if (this.numApplicants <= this.numOfficer) {
+                return this.fcfsList;
+            } else {
+                return this.mostCriticalTaskList;
+            }
+        },
+        applicationList() {
+            return this.sortedList;
+        },
+        numApplicants() {
+            return this.receivedApplication.length;
+        },
+        approvedList() {
+            return this.approvedApplication.reverse();
+        },
+        rejectedList() {
+            return this.rejectedApplication.reverse();
+        },
+        schedulingMethod() {
+            return (this.receivedApplication.length <= this.numOfficer)? 'FCFS' : 'Most Critical';
         }
     },
     methods:{
+        getPriority(applicant) {
+            const type = applicant.type;
+            return type === 'visa' || type === 'passport'?
+                1.5: 3;
+        },
+        getDiffFromDeadline(applicant) {
+            if (applicant.type === 'visa' || applicant.type === 'passport') {
+                return this.getHourDiffFromClosing(applicant.date);
+            } else {
+                return this.getDayDiffFromDeadline(applicant.date);
+            }
+        },
+        getFortnightAway(date) {
+            const dateOfApply = new Date(date);
+            return dateOfApply.setDate(dateOfApply.getDate() + 14);
+        },
+        getHourDiffFromClosing(date) {
+            const closingTime = new Date();
+            closingTime.setHours(16);
+            closingTime.setMinutes(0);
+            closingTime.setSeconds(0);
+            return Math.abs(closingTime - new Date(date)) / 36e5;
+        },
+        getDayDiffFromDeadline(date) {
+            const deadline = this.getFortnightAway(date);
+            const dayDiff = Math.floor((deadline - new Date())/(1000*60*60*24));
+            return dayDiff;
+        },
+        getDueDate() {
+            const priorityList = this.receivedApplication.map((a,i) => {
+                const priority = this.getPriority(a); 
+                const diffFromDeadline = this.getDiffFromDeadline(a);
+                console.log(priority, diffFromDeadline)
+                const value = priority * diffFromDeadline;
+                return {
+                    'value': value,
+                    'index': i,
+                    'diff': diffFromDeadline,
+                    'priority': priority
+                };
+            })
+            priorityList.sort(function(a,b) {
+                return a.value - b.value;
+            })
+
+            const mostCriticalList = priorityList.map((p) => {
+                let due = '';
+                const type = this.receivedApplication[p.index].type;
+                if (type === 'visa' || type === 'passport') {
+                    due = Math.floor(p.diff) + ' hours';
+                } else {
+                    due = p.diff + ' days';
+                }
+                this.receivedApplication[p.index]['due'] = due;
+                return this.receivedApplication[p.index];
+            })
+            console.log(mostCriticalList, priorityList)
+            return mostCriticalList;
+        },
         applicationReceive(application){
             this.receivedApplication.push(application);
         },
